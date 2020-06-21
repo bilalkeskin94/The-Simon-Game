@@ -1,24 +1,35 @@
 let gamePattern = [];
+let userClickedPattern = [];
 let buttonColors = ["red", "blue", "green", "yellow"];
 let randomChosenColor = buttonColors[nextSequance()];
 gamePattern.push(randomChosenColor);
-console.log(gamePattern);
-console.log(randomChosenColor);
+
 function nextSequance() {
   let randomNumber = Math.floor(Math.random() * 4);
+
   return randomNumber;
 }
+
 $(document).ready(function () {
   $("#" + randomChosenColor)
     .fadeIn(100)
     .fadeOut(100)
     .fadeIn(100);
+  let audio = new Audio("sounds/" + randomChosenColor + ".mp3");
+  audio.play();
 });
 
-let audio = new Audio("sounds/" + randomChosenColor + ".mp3");
-audio.play();
-$(".btn").click(function () {
-  let userChosenColor = $(this).attr("id");
-
-  alert(userChosenColor + "is Clicked");
+$(document).ready(function () {
+  $(".btn").click(function () {
+    let userChosenColor = $(this).attr("id");
+    userClickedPattern.push(userChosenColor);
+    console.log(userClickedPattern);
+    let audio = new Audio("sounds/" + userChosenColor + ".mp3");
+    audio.play();
+  });
 });
+function animatePress(currentColor) {
+  $(".btn").click(function () {
+    $(".btn").addClass("pressed");
+  });
+}
